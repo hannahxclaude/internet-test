@@ -159,27 +159,16 @@
                     <div class="action-links">
                         <h3>Contact Your Representatives</h3>
 
-                        <div class="zip-form-container">
-                            <form id="zip-form" class="zip-form">
-                                <label for="zip-input">Enter your ZIP code:</label>
-                                <div class="zip-input-row">
-                                    <input type="text" id="zip-input" name="zip" placeholder="e.g., 92101" maxlength="5" pattern="[0-9]{5}" required>
-                                    <button type="submit" class="action-btn">Find My Reps</button>
-                                </div>
-                            </form>
+                        <div class="rep-buttons">
+                            <a href="https://www.house.gov/representatives/find-your-representative" target="_blank" rel="noopener" class="action-btn">
+                                Find Your House Representative
+                            </a>
+                            <a href="https://www.senate.gov/senators/senators-contact.htm" target="_blank" rel="noopener" class="action-btn">
+                                Find Your Senators
+                            </a>
+                        </div>
 
-                            <div id="rep-results" class="rep-results">
-                                <p class="rep-instructions">Click below to find your representatives, then copy the message template:</p>
-                                <div class="rep-buttons">
-                                    <a id="house-link" href="#" target="_blank" rel="noopener" class="action-btn">
-                                        Find House Representative
-                                    </a>
-                                    <a id="senate-link" href="#" target="_blank" rel="noopener" class="action-btn">
-                                        Find Your Senators
-                                    </a>
-                                </div>
-
-                                <div class="message-template">
+                        <div class="message-template">
                                     <h4>Sample Message <button id="copy-btn" class="copy-btn" type="button">Copy</button></h4>
                                     <div class="message-box" id="message-text">
                                         <p><strong>Subject:</strong> Protect Historic Federal Buildings — Specific Legislative Requests</p>
@@ -197,8 +186,6 @@
                                         <p>Thank you for your attention to this matter. I would appreciate a response outlining your position on these specific requests.</p>
                                         <p>Sincerely,<br>[Your Name]<br>[Your Address]</p>
                                     </div>
-                                </div>
-                            </div>
                         </div>
 
                         <!-- Story Generator -->
@@ -292,34 +279,8 @@
 
         loadNews();
 
-        // ZIP code form handling
-        const zipForm = document.getElementById('zip-form');
-        const zipInput = document.getElementById('zip-input');
-        const repResults = document.getElementById('rep-results');
-        const houseLink = document.getElementById('house-link');
-        const senateLink = document.getElementById('senate-link');
         const copyBtn = document.getElementById('copy-btn');
         const messageText = document.getElementById('message-text');
-
-        zipForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const zip = zipInput.value.trim();
-
-            if (!/^\d{5}$/.test(zip)) {
-                alert('Please enter a valid 5-digit ZIP code');
-                return;
-            }
-
-            // Update links with ZIP code
-            houseLink.href = `https://www.house.gov/representatives/find-your-representative`;
-            senateLink.href = `https://www.senate.gov/senators/senators-contact.htm`;
-
-            // Show results section
-            repResults.style.display = 'block';
-
-            // Scroll to results
-            repResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        });
 
         // Mad libs story generator
         const madlibOptions = {
