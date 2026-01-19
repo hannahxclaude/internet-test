@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hannah's Personal Site</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="wildlife.html">Wildlife Tracker</a>
+        <a href="media.html">Media Tracker</a>
+        <a href="brutalist.html">Brutalist Archive</a>
+    </nav>
+
+    <main class="landing">
+        <h1>Welcome!</h1>
+        <p>This is my personal corner of the internet.</p>
+
+        <div class="cards">
+            <a href="wildlife.html" class="card">
+                <h2>Wildlife Tracker</h2>
+                <p>Keeping tabs on the crows and squirrels who visit my apartment.</p>
+            </a>
+            <a href="media.html" class="card">
+                <h2>Media Tracker</h2>
+                <p>Books, TV shows, and movies I've consumed, with ratings and reviews.</p>
+            </a>
+            <a href="brutalist.html" class="card">
+                <h2>Brutalist Archive</h2>
+                <p>Documenting and defending concrete monuments of the 20th century.</p>
+            </a>
+        </div>
+
+        <section class="squirrel-gallery">
+            <h2>Squirrel Appreciation Corner</h2>
+            <div class="squirrel-pics">
+                <img src="images/squirrel1.jpg" alt="Cute squirrel" class="squirrel-img">
+                <img src="images/squirrel2.jpg" alt="Squirrel eating" class="squirrel-img" id="magic-squirrel" title="Click me...">
+                <img src="images/squirrel3.jpg" alt="Squirrel posing" class="squirrel-img">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Built with plain HTML, CSS, and JS</p>
+    </footer>
+
+    <script>
+        // Solitaire-style bouncing squirrel easter egg
+        const magicSquirrel = document.getElementById('magic-squirrel');
+
+        magicSquirrel.addEventListener('click', function(e) {
+            e.preventDefault();
+            startSquirrelCascade(this.src);
+        });
+
+        function startSquirrelCascade(imgSrc) {
+            const numSquirrels = 15;
+            const squirrels = [];
+
+            for (let i = 0; i < numSquirrels; i++) {
+                setTimeout(() => {
+                    createBouncingSquirrel(imgSrc, squirrels);
+                }, i * 200);
+            }
+
+            // Clean up after animation
+            setTimeout(() => {
+                squirrels.forEach(s => s.element.remove());
+            }, 8000);
+        }
+
+        function createBouncingSquirrel(imgSrc, squirrels) {
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            img.style.cssText = `
+                position: fixed;
+                width: 80px;
+                height: 80px;
+                object-fit: cover;
+                border-radius: 10px;
+                pointer-events: none;
+                z-index: 9999;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            `;
+            document.body.appendChild(img);
+
+            const squirrel = {
+                element: img,
+                x: Math.random() * (window.innerWidth - 100),
+                y: -100,
+                vx: (Math.random() - 0.5) * 8,
+                vy: 0,
+                gravity: 0.4,
+                bounce: 0.7,
+                trail: []
+            };
+
+            squirrels.push(squirrel);
+            animateSquirrel(squirrel);
+        }
+
+        function animateSquirrel(squirrel) {
+            const maxTrail = 8;
+            let frame = 0;
+            const maxFrames = 400;
+
+            function update() {
+                if (frame > maxFrames) {
+                    squirrel.trail.forEach(t => t.remove());
+                    return;
+                }
+
+                // Leave a trail (the cascade effect)
+                if (frame % 3 === 0) {
+                    const ghost = document.createElement('img');
+                    ghost.src = squirrel.element.src;
+                    ghost.style.cssText = `
+                        position: fixed;
+                        left: ${squirrel.x}px;
+                        top: ${squirrel.y}px;
+                        width: 80px;
+                        height: 80px;
+                        object-fit: cover;
+                        border-radius: 10px;
+                        pointer-events: none;
+                        z-index: 9998;
+                        opacity: 0.6;
+                    `;
+                    document.body.appendChild(ghost);
+                    squirrel.trail.push(ghost);
+
+                    // Fade out old trail images
+                    if (squirrel.trail.length > maxTrail) {
+                        const old = squirrel.trail.shift();
+                        old.remove();
+                    }
+                }
+
+                // Physics
+                squirrel.vy += squirrel.gravity;
+                squirrel.x += squirrel.vx;
+                squirrel.y += squirrel.vy;
+
+                // Bounce off walls
+                if (squirrel.x <= 0) {
+                    squirrel.x = 0;
+                    squirrel.vx *= -squirrel.bounce;
+                }
+                if (squirrel.x >= window.innerWidth - 80) {
+                    squirrel.x = window.innerWidth - 80;
+                    squirrel.vx *= -squirrel.bounce;
+                }
+
+                // Bounce off floor
+                if (squirrel.y >= window.innerHeight - 80) {
+                    squirrel.y = window.innerHeight - 80;
+                    squirrel.vy *= -squirrel.bounce;
+                    squirrel.vx *= 0.95; // friction
+                }
+
+                // Update position
+                squirrel.element.style.left = squirrel.x + 'px';
+                squirrel.element.style.top = squirrel.y + 'px';
+
+                frame++;
+                requestAnimationFrame(update);
+            }
+
+            update();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildlife Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="wildlife.html" class="active">Wildlife Tracker</a>
+        <a href="media.html">Media Tracker</a>
+        <a href="brutalist.html">Brutalist Archive</a>
+    </nav>
+
+    <main>
+        <div class="tracker-header">
+            <h1>Wildlife Tracker</h1>
+            <button class="btn" onclick="openModal()">+ Log Sighting</button>
+        </div>
+
+        <div class="stats" id="stats"></div>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="crow">Crows</button>
+            <button class="filter-btn" data-filter="squirrel">Squirrels</button>
+        </div>
+
+        <div class="items-grid" id="sightings-list"></div>
+    </main>
+
+    <!-- Add/Edit Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <h2 id="modal-title">Log Sighting</h2>
+            <form id="sighting-form">
+                <input type="hidden" id="edit-id">
+
+                <div class="form-group">
+                    <label for="animal-type">Animal Type *</label>
+                    <select id="animal-type" required>
+                        <option value="crow">Crow</option>
+                        <option value="squirrel">Squirrel</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="animal-name">Name/Identifier</label>
+                    <input type="text" id="animal-name" placeholder="e.g., One-Eyed Jack, Fluffy Tail">
+                </div>
+
+                <div class="form-group">
+                    <label for="visit-date">Date</label>
+                    <input type="date" id="visit-date">
+                </div>
+
+                <div class="form-group">
+                    <label for="visit-time">Time of Visit</label>
+                    <input type="time" id="visit-time">
+                </div>
+
+                <div class="form-group">
+                    <label for="behavior">Behavior/Notes</label>
+                    <textarea id="behavior" placeholder="What were they doing? Any distinctive features?"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>Built with plain HTML, CSS, and JS</p>
+    </footer>
+
+    <script>
+        // Wildlife Tracker Logic
+        const STORAGE_KEY = 'wildlife_sightings';
+
+        function getSightings() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveSightings(sightings) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(sightings));
+        }
+
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        function formatTime(timeStr) {
+            if (!timeStr) return '';
+            const [hours, minutes] = timeStr.split(':');
+            const h = parseInt(hours);
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            const hour12 = h % 12 || 12;
+            return `${hour12}:${minutes} ${ampm}`;
+        }
+
+        // Modal functions
+        function openModal(sighting = null) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modal-title');
+            const form = document.getElementById('sighting-form');
+
+            if (sighting) {
+                title.textContent = 'Edit Sighting';
+                document.getElementById('edit-id').value = sighting.id;
+                document.getElementById('animal-type').value = sighting.type;
+                document.getElementById('animal-name').value = sighting.name || '';
+                document.getElementById('visit-date').value = sighting.date || '';
+                document.getElementById('visit-time').value = sighting.time || '';
+                document.getElementById('behavior').value = sighting.behavior || '';
+            } else {
+                title.textContent = 'Log Sighting';
+                form.reset();
+                document.getElementById('edit-id').value = '';
+                document.getElementById('visit-date').value = new Date().toISOString().split('T')[0];
+            }
+
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // Form submission
+        document.getElementById('sighting-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const sightings = getSightings();
+            const editId = document.getElementById('edit-id').value;
+
+            const sightingData = {
+                id: editId || generateId(),
+                type: document.getElementById('animal-type').value,
+                name: document.getElementById('animal-name').value.trim(),
+                date: document.getElementById('visit-date').value,
+                time: document.getElementById('visit-time').value,
+                behavior: document.getElementById('behavior').value.trim(),
+                createdAt: editId ? sightings.find(s => s.id === editId)?.createdAt : new Date().toISOString()
+            };
+
+            if (editId) {
+                const index = sightings.findIndex(s => s.id === editId);
+                if (index !== -1) sightings[index] = sightingData;
+            } else {
+                sightings.unshift(sightingData);
+            }
+
+            saveSightings(sightings);
+            closeModal();
+            renderSightings();
+        });
+
+        // Delete sighting
+        function deleteSighting(id) {
+            if (!confirm('Delete this sighting?')) return;
+            const sightings = getSightings().filter(s => s.id !== id);
+            saveSightings(sightings);
+            renderSightings();
+        }
+
+        // Edit sighting
+        function editSighting(id) {
+            const sighting = getSightings().find(s => s.id === id);
+            if (sighting) openModal(sighting);
+        }
+
+        // Render sightings
+        let currentFilter = 'all';
+
+        function renderSightings() {
+            const sightings = getSightings();
+            const filtered = currentFilter === 'all'
+                ? sightings
+                : sightings.filter(s => s.type === currentFilter);
+
+            const container = document.getElementById('sightings-list');
+
+            // Render stats
+            const crows = sightings.filter(s => s.type === 'crow').length;
+            const squirrels = sightings.filter(s => s.type === 'squirrel').length;
+            const uniqueNames = new Set(sightings.filter(s => s.name).map(s => s.name)).size;
+
+            document.getElementById('stats').innerHTML = `
+                <div class="stat">
+                    <div class="stat-value">${sightings.length}</div>
+                    <div class="stat-label">Total Sightings</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">${crows}</div>
+                    <div class="stat-label">Crow Visits</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">${squirrels}</div>
+                    <div class="stat-label">Squirrel Visits</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">${uniqueNames}</div>
+                    <div class="stat-label">Named Individuals</div>
+                </div>
+            `;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <p>No sightings yet. Click "+ Log Sighting" to add your first visitor!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(s => `
+                <div class="item-card">
+                    <div class="item-header">
+                        <div>
+                            <span class="animal-type ${s.type}">${s.type === 'crow' ? 'Crow' : 'Squirrel'}</span>
+                            <span class="item-title">${s.name || 'Unknown visitor'}</span>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn btn-small btn-secondary" onclick="editSighting('${s.id}')">Edit</button>
+                            <button class="btn btn-small btn-danger" onclick="deleteSighting('${s.id}')">Delete</button>
+                        </div>
+                    </div>
+                    <div class="item-meta">
+                        ${s.date ? formatDate(s.date) : 'No date'}
+                        ${s.time ? ' at ' + formatTime(s.time) : ''}
+                    </div>
+                    ${s.behavior ? `<div class="item-notes">${s.behavior}</div>` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.dataset.filter;
+                renderSightings();
+            });
+        });
+
+        // Close modal on overlay click
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Initial render
+        renderSightings();
+    </script>
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="wildlife.html">Wildlife Tracker</a>
+        <a href="media.html" class="active">Media Tracker</a>
+        <a href="brutalist.html">Brutalist Archive</a>
+    </nav>
+
+    <main>
+        <div class="tracker-header">
+            <h1>Media Tracker</h1>
+            <button class="btn" onclick="openModal()">+ Add Media</button>
+        </div>
+
+        <div class="stats" id="stats"></div>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="book">Books</button>
+            <button class="filter-btn" data-filter="tv">TV Shows</button>
+            <button class="filter-btn" data-filter="movie">Movies</button>
+            <button class="filter-btn" data-filter="recommended">Recommended</button>
+        </div>
+
+        <div class="items-grid" id="media-list"></div>
+    </main>
+
+    <!-- Add/Edit Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <h2 id="modal-title">Add Media</h2>
+            <form id="media-form">
+                <input type="hidden" id="edit-id">
+
+                <div class="form-group">
+                    <label for="media-type">Type *</label>
+                    <select id="media-type" required>
+                        <option value="book">Book</option>
+                        <option value="tv">TV Show</option>
+                        <option value="movie">Movie</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="media-title">Title *</label>
+                    <input type="text" id="media-title" required placeholder="Enter title">
+                </div>
+
+                <div class="form-group">
+                    <label for="media-creator">Author/Director</label>
+                    <input type="text" id="media-creator" placeholder="Who made it?">
+                </div>
+
+                <div class="form-group">
+                    <label for="completed-date">Date Completed</label>
+                    <input type="date" id="completed-date">
+                </div>
+
+                <div class="form-group">
+                    <label>Rating</label>
+                    <div class="rating-input">
+                        <input type="radio" id="star5" name="rating" value="5">
+                        <label for="star5">&#9733;</label>
+                        <input type="radio" id="star4" name="rating" value="4">
+                        <label for="star4">&#9733;</label>
+                        <input type="radio" id="star3" name="rating" value="3">
+                        <label for="star3">&#9733;</label>
+                        <input type="radio" id="star2" name="rating" value="2">
+                        <label for="star2">&#9733;</label>
+                        <input type="radio" id="star1" name="rating" value="1">
+                        <label for="star1">&#9733;</label>
+                        <input type="radio" id="star0" name="rating" value="0" checked>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="review">Review</label>
+                    <textarea id="review" placeholder="What did you think?"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="recommend">
+                        <label for="recommend">Would recommend to others</label>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>Built with plain HTML, CSS, and JS</p>
+    </footer>
+
+    <script>
+        // Media Tracker Logic
+        const STORAGE_KEY = 'media_tracker';
+
+        function getMedia() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveMedia(media) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(media));
+        }
+
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        function getTypeLabel(type) {
+            const labels = { book: 'Book', tv: 'TV Show', movie: 'Movie' };
+            return labels[type] || type;
+        }
+
+        function renderStars(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                stars += `<span class="star ${i <= rating ? 'filled' : ''}">&#9733;</span>`;
+            }
+            return stars;
+        }
+
+        // Modal functions
+        function openModal(media = null) {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modal-title');
+            const form = document.getElementById('media-form');
+
+            if (media) {
+                title.textContent = 'Edit Media';
+                document.getElementById('edit-id').value = media.id;
+                document.getElementById('media-type').value = media.type;
+                document.getElementById('media-title').value = media.title;
+                document.getElementById('media-creator').value = media.creator || '';
+                document.getElementById('completed-date').value = media.completedDate || '';
+                document.getElementById('review').value = media.review || '';
+                document.getElementById('recommend').checked = media.recommend || false;
+
+                // Set rating
+                const ratingRadio = document.querySelector(`input[name="rating"][value="${media.rating || 0}"]`);
+                if (ratingRadio) ratingRadio.checked = true;
+            } else {
+                title.textContent = 'Add Media';
+                form.reset();
+                document.getElementById('edit-id').value = '';
+                document.getElementById('star0').checked = true;
+            }
+
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // Form submission
+        document.getElementById('media-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const mediaList = getMedia();
+            const editId = document.getElementById('edit-id').value;
+            const ratingInput = document.querySelector('input[name="rating"]:checked');
+
+            const mediaData = {
+                id: editId || generateId(),
+                type: document.getElementById('media-type').value,
+                title: document.getElementById('media-title').value.trim(),
+                creator: document.getElementById('media-creator').value.trim(),
+                completedDate: document.getElementById('completed-date').value,
+                rating: ratingInput ? parseInt(ratingInput.value) : 0,
+                review: document.getElementById('review').value.trim(),
+                recommend: document.getElementById('recommend').checked,
+                createdAt: editId ? mediaList.find(m => m.id === editId)?.createdAt : new Date().toISOString()
+            };
+
+            if (editId) {
+                const index = mediaList.findIndex(m => m.id === editId);
+                if (index !== -1) mediaList[index] = mediaData;
+            } else {
+                mediaList.unshift(mediaData);
+            }
+
+            saveMedia(mediaList);
+            closeModal();
+            renderMedia();
+        });
+
+        // Delete media
+        function deleteMedia(id) {
+            if (!confirm('Delete this entry?')) return;
+            const mediaList = getMedia().filter(m => m.id !== id);
+            saveMedia(mediaList);
+            renderMedia();
+        }
+
+        // Edit media
+        function editMedia(id) {
+            const media = getMedia().find(m => m.id === id);
+            if (media) openModal(media);
+        }
+
+        // Render media
+        let currentFilter = 'all';
+
+        function renderMedia() {
+            const mediaList = getMedia();
+            let filtered;
+
+            if (currentFilter === 'all') {
+                filtered = mediaList;
+            } else if (currentFilter === 'recommended') {
+                filtered = mediaList.filter(m => m.recommend);
+            } else {
+                filtered = mediaList.filter(m => m.type === currentFilter);
+            }
+
+            const container = document.getElementById('media-list');
+
+            // Render stats
+            const books = mediaList.filter(m => m.type === 'book').length;
+            const tvShows = mediaList.filter(m => m.type === 'tv').length;
+            const movies = mediaList.filter(m => m.type === 'movie').length;
+            const recommended = mediaList.filter(m => m.recommend).length;
+
+            document.getElementById('stats').innerHTML = `
+                <div class="stat">
+                    <div class="stat-value">${mediaList.length}</div>
+                    <div class="stat-label">Total Entries</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">${books}</div>
+                    <div class="stat-label">Books</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">${tvShows}</div>
+                    <div class="stat-label">TV Shows</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">${movies}</div>
+                    <div class="stat-label">Movies</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">${recommended}</div>
+                    <div class="stat-label">Recommended</div>
+                </div>
+            `;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <p>No media entries yet. Click "+ Add Media" to track something you've watched or read!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(m => `
+                <div class="item-card">
+                    <div class="item-header">
+                        <div>
+                            <span class="item-title">${m.title}</span>
+                            ${m.recommend ? '<span class="badge">Recommended</span>' : ''}
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn btn-small btn-secondary" onclick="editMedia('${m.id}')">Edit</button>
+                            <button class="btn btn-small btn-danger" onclick="deleteMedia('${m.id}')">Delete</button>
+                        </div>
+                    </div>
+                    <div class="item-meta">
+                        ${getTypeLabel(m.type)}
+                        ${m.creator ? ' &middot; ' + m.creator : ''}
+                        ${m.completedDate ? ' &middot; Completed ' + formatDate(m.completedDate) : ''}
+                    </div>
+                    ${m.rating > 0 ? `<div class="rating">${renderStars(m.rating)}</div>` : ''}
+                    ${m.review ? `<div class="item-notes">${m.review}</div>` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.dataset.filter;
+                renderMedia();
+            });
+        });
+
+        // Close modal on overlay click
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Initial render
+        renderMedia();
+    </script>
+</body>
+</html>
