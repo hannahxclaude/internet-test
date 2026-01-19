@@ -192,7 +192,7 @@
                                         <p><strong>2. FY2027 Financial Services and General Government Appropriations:</strong><br>
                                         Include language stating: "None of the funds made available to the General Services Administration may be used to demolish any federal building that is listed, or eligible for listing, on the National Register of Historic Places, without completion of the Section 106 review process and a 180-day notification to the Committees on Appropriations."</p>
                                         <p><strong>3. Any GSA Modernization or Federal Property Legislation:</strong><br>
-                                        Require that "highest and best use" determinations for federal property explicitly include historic, architectural, and cultural value — not solely financial return. Evaluation criteria should include, but not be limited to: percentage of structure composed of exposed concrete, cantilever ratio, and overall monumental presence.</p>
+                                        Require that "highest and best use" determinations for federal property explicitly include historic, architectural, and cultural value — not solely financial return. Evaluation criteria should include, but not be limited to: percentage of structure composed of exposed concrete, embodiment of democratic values through architectural form, and representation of significant 20th-century design movements.</p>
                                         <p>These buildings belong to the American people. Congress has both the power and the responsibility to protect them.</p>
                                         <p>Thank you for your attention to this matter. I would appreciate a response outlining your position on these specific requests.</p>
                                         <p>Sincerely,<br>[Your Name]<br>[Your Address]</p>
@@ -203,12 +203,37 @@
 
                         <div class="other-resources">
                             <h4>Other Ways to Help</h4>
-                            <a href="https://savingplaces.org/" target="_blank" rel="noopener" class="action-btn secondary">
-                                National Trust for Historic Preservation
-                            </a>
                             <a href="https://docomomo-us.org/" target="_blank" rel="noopener" class="action-btn secondary">
                                 Docomomo US (Modern Architecture Preservation)
                             </a>
+                        </div>
+
+                        <!-- Story Generator -->
+                        <div class="story-generator">
+                            <h4>Share Your Story</h4>
+                            <p class="generator-intro">Generate a personal statement in support of brutalist architecture:</p>
+
+                            <div class="madlib-container">
+                                <p class="generated-story">
+                                    During a recent visit to the <span class="madlib-slot" id="slot-building" data-index="0">Robert C. Weaver Federal Building</span>, I was struck by its <span class="madlib-slot" id="slot-adjective" data-index="0">forthright</span> presence. As a citizen who values <span class="madlib-slot" id="slot-value" data-index="0">fiscal responsibility</span>, I believe these structures represent an important chapter in our nation's architectural heritage. The building's exposed concrete facade serves as a daily reminder that public institutions can embody both permanence and purpose. I respectfully urge the preservation of this and similar structures for future generations.
+                                </p>
+
+                                <div class="madlib-controls">
+                                    <button type="button" class="cycle-btn" data-target="slot-building">
+                                        <span class="cycle-label">Building</span>
+                                        <span class="cycle-arrows">&#8645;</span>
+                                    </button>
+                                    <button type="button" class="cycle-btn" data-target="slot-adjective">
+                                        <span class="cycle-label">Quality</span>
+                                        <span class="cycle-arrows">&#8645;</span>
+                                    </button>
+                                    <button type="button" class="cycle-btn" data-target="slot-value">
+                                        <span class="cycle-label">Value</span>
+                                        <span class="cycle-arrows">&#8645;</span>
+                                    </button>
+                                    <button type="button" class="copy-btn" id="copy-story-btn">Copy Story</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -296,6 +321,64 @@
 
             // Scroll to results
             repResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+
+        // Mad libs story generator
+        const madlibOptions = {
+            'slot-building': [
+                'Robert C. Weaver Federal Building',
+                'J. Edgar Hoover Building',
+                'Hubert H. Humphrey Building',
+                'Metropolitan Correctional Center, Chicago',
+                'Geisel Library, University of California San Diego'
+            ],
+            'slot-adjective': [
+                'forthright',
+                'uncompromising',
+                'resolute',
+                'substantial',
+                'commanding'
+            ],
+            'slot-value': [
+                'fiscal responsibility',
+                'institutional permanence',
+                'civic investment',
+                'architectural integrity',
+                'democratic ideals'
+            ]
+        };
+
+        const madlibIndices = {
+            'slot-building': 0,
+            'slot-adjective': 0,
+            'slot-value': 0
+        };
+
+        document.querySelectorAll('.cycle-btn[data-target]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetId = this.dataset.target;
+                const options = madlibOptions[targetId];
+                if (!options) return;
+
+                madlibIndices[targetId] = (madlibIndices[targetId] + 1) % options.length;
+                const slot = document.getElementById(targetId);
+                slot.textContent = options[madlibIndices[targetId]];
+                slot.classList.add('flash');
+                setTimeout(() => slot.classList.remove('flash'), 300);
+            });
+        });
+
+        // Copy story to clipboard
+        document.getElementById('copy-story-btn').addEventListener('click', function() {
+            const story = document.querySelector('.generated-story').innerText;
+            navigator.clipboard.writeText(story).then(() => {
+                this.textContent = 'Copied!';
+                this.classList.add('copied');
+                setTimeout(() => {
+                    this.textContent = 'Copy Story';
+                    this.classList.remove('copied');
+                }, 2000);
+            });
         });
 
         // Copy message to clipboard

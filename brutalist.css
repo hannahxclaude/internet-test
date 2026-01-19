@@ -739,3 +739,92 @@ footer a:hover {
     letter-spacing: 0.1em;
     margin-bottom: 1rem;
 }
+
+/* Story Generator / Mad Libs */
+.story-generator {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.story-generator h4 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+}
+
+.generator-intro {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.madlib-container {
+    background: var(--black);
+    padding: 1.5rem;
+}
+
+.generated-story {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--concrete);
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid var(--concrete-dark);
+}
+
+.madlib-slot {
+    background: rgba(196, 30, 58, 0.3);
+    color: var(--white);
+    padding: 0.1rem 0.4rem;
+    border-bottom: 2px solid var(--accent);
+    cursor: default;
+    transition: background 0.3s;
+}
+
+.madlib-slot.flash {
+    background: var(--accent);
+}
+
+.madlib-controls {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.cycle-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: 2px solid var(--concrete-dark);
+    color: var(--concrete);
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cycle-btn:hover {
+    border-color: var(--white);
+    color: var(--white);
+}
+
+.cycle-label {
+    font-weight: bold;
+}
+
+.cycle-arrows {
+    font-size: 1rem;
+    opacity: 0.7;
+}
+
+.madlib-controls .copy-btn {
+    margin-left: auto;
+}
