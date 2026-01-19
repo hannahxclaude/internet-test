@@ -158,18 +158,54 @@
                     </div>
                     <div class="action-links">
                         <h3>Contact Your Representatives</h3>
-                        <a href="https://www.house.gov/representatives/find-your-representative" target="_blank" rel="noopener" class="action-btn">
-                            Find Your House Representative
-                        </a>
-                        <a href="https://www.senate.gov/senators/senators-contact.htm" target="_blank" rel="noopener" class="action-btn">
-                            Contact Your Senators
-                        </a>
-                        <a href="https://savingplaces.org/" target="_blank" rel="noopener" class="action-btn secondary">
-                            National Trust for Historic Preservation
-                        </a>
-                        <a href="https://docomomo-us.org/" target="_blank" rel="noopener" class="action-btn secondary">
-                            Docomomo US (Modern Architecture Preservation)
-                        </a>
+
+                        <div class="zip-form-container">
+                            <form id="zip-form" class="zip-form">
+                                <label for="zip-input">Enter your ZIP code:</label>
+                                <div class="zip-input-row">
+                                    <input type="text" id="zip-input" name="zip" placeholder="e.g., 92101" maxlength="5" pattern="[0-9]{5}" required>
+                                    <button type="submit" class="action-btn">Find My Reps</button>
+                                </div>
+                            </form>
+
+                            <div id="rep-results" class="rep-results" style="display: none;">
+                                <p class="rep-instructions">Click below to find your representatives, then copy the message template:</p>
+                                <div class="rep-buttons">
+                                    <a id="house-link" href="#" target="_blank" rel="noopener" class="action-btn">
+                                        Find House Representative
+                                    </a>
+                                    <a id="senate-link" href="#" target="_blank" rel="noopener" class="action-btn">
+                                        Find Your Senators
+                                    </a>
+                                </div>
+
+                                <div class="message-template">
+                                    <h4>Sample Message <button id="copy-btn" class="copy-btn" type="button">Copy</button></h4>
+                                    <div class="message-box" id="message-text">
+                                        <p><strong>Subject:</strong> Protect Historic Federal Buildings from Demolition</p>
+                                        <p>Dear [Representative/Senator],</p>
+                                        <p>As your constituent, I am writing to urge you to protect America's brutalist and modernist federal buildings from demolition or unnecessary alteration.</p>
+                                        <p>Buildings like the Robert C. Weaver Federal Building (HUD Headquarters) represent significant achievements in American civic architecture. They embody the democratic ideals of their era and honor civil rights heroes. Demolishing them would waste billions in taxpayer resources while erasing important architectural heritage.</p>
+                                        <p>I respectfully ask that you:</p>
+                                        <p>1. Oppose any legislation or executive action that would demolish historically significant federal buildings<br>
+                                        2. Support landmark protections for mid-century modern federal architecture<br>
+                                        3. Ensure any building modifications respect the original architectural vision</p>
+                                        <p>These buildings belong to the American people. Please protect them.</p>
+                                        <p>Sincerely,<br>[Your Name]<br>[Your Address]</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="other-resources">
+                            <h4>Other Ways to Help</h4>
+                            <a href="https://savingplaces.org/" target="_blank" rel="noopener" class="action-btn secondary">
+                                National Trust for Historic Preservation
+                            </a>
+                            <a href="https://docomomo-us.org/" target="_blank" rel="noopener" class="action-btn secondary">
+                                Docomomo US (Modern Architecture Preservation)
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -228,6 +264,61 @@
         }
 
         loadNews();
+
+        // ZIP code form handling
+        const zipForm = document.getElementById('zip-form');
+        const zipInput = document.getElementById('zip-input');
+        const repResults = document.getElementById('rep-results');
+        const houseLink = document.getElementById('house-link');
+        const senateLink = document.getElementById('senate-link');
+        const copyBtn = document.getElementById('copy-btn');
+        const messageText = document.getElementById('message-text');
+
+        zipForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const zip = zipInput.value.trim();
+
+            if (!/^\d{5}$/.test(zip)) {
+                alert('Please enter a valid 5-digit ZIP code');
+                return;
+            }
+
+            // Update links with ZIP code
+            houseLink.href = `https://www.house.gov/representatives/find-your-representative`;
+            senateLink.href = `https://www.senate.gov/senators/senators-contact.htm`;
+
+            // Show results section
+            repResults.style.display = 'block';
+
+            // Scroll to results
+            repResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+
+        // Copy message to clipboard
+        copyBtn.addEventListener('click', function() {
+            const text = messageText.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Copied!';
+                copyBtn.classList.add('copied');
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                // Fallback for older browsers
+                const range = document.createRange();
+                range.selectNode(messageText);
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+                document.execCommand('copy');
+                window.getSelection().removeAllRanges();
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy';
+                }, 2000);
+            });
+        });
     </script>
 </body>
 </html>

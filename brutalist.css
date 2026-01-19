@@ -594,3 +594,148 @@ footer a:hover {
         gap: 1rem;
     }
 }
+
+/* ZIP Code Form Styles */
+.zip-form-container {
+    margin-bottom: 2rem;
+}
+
+.zip-form {
+    background: var(--black);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.zip-form label {
+    display: block;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+}
+
+.zip-input-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.zip-form input[type="text"] {
+    flex: 1;
+    min-width: 120px;
+    max-width: 200px;
+    padding: 0.75rem 1rem;
+    font-size: 1.2rem;
+    font-family: 'Arial Black', Helvetica, sans-serif;
+    letter-spacing: 0.2em;
+    text-align: center;
+    border: 2px solid var(--white);
+    background: transparent;
+    color: var(--white);
+}
+
+.zip-form input[type="text"]::placeholder {
+    color: var(--concrete-dark);
+    letter-spacing: 0.1em;
+}
+
+.zip-form input[type="text"]:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.zip-form .action-btn {
+    cursor: pointer;
+    border: none;
+}
+
+.rep-results {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.rep-instructions {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.rep-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.rep-buttons .action-btn {
+    flex: 1;
+    min-width: 200px;
+}
+
+.message-template {
+    background: var(--black);
+    padding: 1.5rem;
+}
+
+.message-template h4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--concrete-dark);
+}
+
+.copy-btn {
+    background: var(--white);
+    color: var(--black);
+    border: none;
+    padding: 0.4rem 1rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.copy-btn:hover {
+    background: var(--accent);
+    color: var(--white);
+}
+
+.copy-btn.copied {
+    background: #2ecc71;
+    color: var(--white);
+}
+
+.message-box {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--concrete);
+}
+
+.message-box p {
+    margin-bottom: 0.75rem;
+}
+
+.message-box strong {
+    color: var(--white);
+}
+
+.other-resources {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.other-resources h4 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+}
