@@ -14,13 +14,53 @@
         <a href="brutalist.html">Brutalist Archive</a>
     </nav>
 
-    <main>
+    <main class="surveillance-hq">
         <div class="tracker-header">
-            <h1>Wildlife Tracker</h1>
+            <div class="hq-title">
+                <h1>Urban Wildlife Surveillance HQ</h1>
+                <p class="hq-subtitle">Monitoring backyard activity since 2024</p>
+            </div>
             <button class="btn" onclick="openModal()">+ Log Sighting</button>
         </div>
 
+        <div class="alert-banner">
+            <span class="alert-icon">!</span>
+            <span class="alert-text">ALERT: Squirrel activity detected in sector 7 (the bird feeder)</span>
+        </div>
+
         <div class="stats" id="stats"></div>
+
+        <!-- Known Operatives Section -->
+        <section class="operatives-section">
+            <h2 class="section-title"><span class="classified-badge">CLASSIFIED</span> Known Operatives</h2>
+            <div class="operatives-grid">
+                <a href="squirrel-nacho.html" class="operative-card">
+                    <div class="operative-photo">
+                        <div class="operative-photo-placeholder">SQ-001</div>
+                    </div>
+                    <div class="operative-info">
+                        <div class="operative-name">NACHO</div>
+                        <div class="operative-codename">"The Unit"</div>
+                        <div class="operative-status status-active">ACTIVE</div>
+                    </div>
+                    <div class="operative-arrow">&rarr;</div>
+                </a>
+                <a href="squirrel-lisa.html" class="operative-card">
+                    <div class="operative-photo">
+                        <div class="operative-photo-placeholder">SQ-002</div>
+                    </div>
+                    <div class="operative-info">
+                        <div class="operative-name">LISA</div>
+                        <div class="operative-codename">"Tufted Menace"</div>
+                        <div class="operative-status status-active">ACTIVE</div>
+                    </div>
+                    <div class="operative-arrow">&rarr;</div>
+                </a>
+            </div>
+            <p class="operatives-hint">Click to view full dossier</p>
+        </section>
+
+        <h2 class="section-title">Activity Log</h2>
 
         <div class="filters">
             <button class="filter-btn active" data-filter="all">All</button>

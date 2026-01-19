@@ -465,6 +465,427 @@ footer {
     font-size: 0.85rem;
 }
 
+/* ==========================================
+   URBAN WILDLIFE SURVEILLANCE STYLES
+   ========================================== */
+
+/* Surveillance HQ Page */
+.surveillance-hq .hq-title h1 {
+    font-size: 1.8rem;
+}
+
+.hq-subtitle {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+.alert-banner {
+    background: linear-gradient(90deg, rgba(233, 69, 96, 0.2), rgba(233, 69, 96, 0.1));
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    animation: pulse-border 2s ease-in-out infinite;
+}
+
+@keyframes pulse-border {
+    0%, 100% { border-color: var(--primary); }
+    50% { border-color: rgba(233, 69, 96, 0.5); }
+}
+
+.alert-icon {
+    background: var(--primary);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.alert-text {
+    color: var(--text);
+    font-size: 0.9rem;
+}
+
+.section-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.classified-badge {
+    background: var(--primary);
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+/* Operatives Section */
+.operatives-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: var(--surface);
+    border-radius: 12px;
+    border: 1px solid var(--surface-light);
+}
+
+.operatives-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.operative-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--bg);
+    border: 1px solid var(--surface-light);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
+}
+
+.operative-card:hover {
+    border-color: var(--primary);
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(233, 69, 96, 0.2);
+}
+
+.operative-photo {
+    flex-shrink: 0;
+}
+
+.operative-photo-placeholder {
+    width: 60px;
+    height: 60px;
+    background: var(--surface-light);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    border: 2px dashed var(--text-muted);
+}
+
+.operative-info {
+    flex: 1;
+}
+
+.operative-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.operative-codename {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+.operative-status {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.status-active {
+    background: rgba(78, 204, 163, 0.2);
+    color: var(--success);
+}
+
+.operative-arrow {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+}
+
+.operative-card:hover .operative-arrow {
+    transform: translateX(4px);
+    color: var(--primary);
+}
+
+.operatives-hint {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+/* ==========================================
+   DOSSIER PAGE STYLES
+   ========================================== */
+
+.dossier-page {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.back-link {
+    display: inline-block;
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: var(--primary);
+}
+
+.dossier-container {
+    background: var(--surface);
+    border-radius: 12px;
+    border: 1px solid var(--surface-light);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.dossier-stamp {
+    position: absolute;
+    top: 20px;
+    right: -30px;
+    background: var(--primary);
+    color: white;
+    padding: 0.5rem 3rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    transform: rotate(30deg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dossier-header {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--surface-light);
+}
+
+.dossier-photo {
+    flex-shrink: 0;
+}
+
+.photo-placeholder {
+    width: 150px;
+    height: 180px;
+    background: var(--bg);
+    border: 3px dashed var(--text-muted);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.photo-label {
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.dossier-title {
+    flex: 1;
+}
+
+.file-number {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+}
+
+.dossier-title h1 {
+    font-size: 3rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.25rem;
+    color: var(--text);
+}
+
+.codename {
+    font-size: 1.2rem;
+    color: var(--primary);
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.threat-level {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.threat-low {
+    background: rgba(78, 204, 163, 0.2);
+    border: 1px solid var(--success);
+}
+
+.threat-low .threat-value {
+    color: var(--success);
+}
+
+.threat-moderate {
+    background: rgba(255, 215, 0, 0.2);
+    border: 1px solid var(--star);
+}
+
+.threat-moderate .threat-value {
+    color: var(--star);
+}
+
+.threat-high {
+    background: rgba(233, 69, 96, 0.2);
+    border: 1px solid var(--primary);
+}
+
+.threat-high .threat-value {
+    color: var(--primary);
+}
+
+.threat-label {
+    color: var(--text-muted);
+}
+
+.dossier-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.dossier-section {
+    background: var(--bg);
+    padding: 1.25rem;
+    border-radius: 8px;
+    border: 1px solid var(--surface-light);
+}
+
+.dossier-section h2 {
+    font-size: 1rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--surface-light);
+    letter-spacing: 0.05em;
+}
+
+.dossier-stats {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.dossier-stats dt {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.dossier-stats dd {
+    color: var(--text);
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+.dossier-stats dd.highlight {
+    color: var(--success);
+    font-weight: 600;
+}
+
+.dossier-stats dd a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.dossier-stats dd a:hover {
+    text-decoration: underline;
+}
+
+.criminal-record {
+    list-style: none;
+}
+
+.criminal-record li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--surface-light);
+    font-size: 0.9rem;
+}
+
+.criminal-record li:last-child {
+    border-bottom: none;
+}
+
+.charge {
+    color: var(--text);
+}
+
+.severity {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.intel-notes p {
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text);
+}
+
+.intel-notes strong {
+    color: var(--primary);
+}
+
+.dossier-footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 2px solid var(--surface-light);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.dossier-footer p {
+    margin-bottom: 0.25rem;
+}
+
 /* Responsive */
 @media (max-width: 600px) {
     nav {
@@ -478,5 +899,21 @@ footer {
     .tracker-header {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .dossier-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .dossier-title h1 {
+        font-size: 2rem;
+    }
+
+    .dossier-stamp {
+        top: 10px;
+        right: -40px;
+        font-size: 0.7rem;
     }
 }
