@@ -215,7 +215,7 @@
 
                             <div class="madlib-container">
                                 <p class="generated-story">
-                                    During a recent visit to the <span class="madlib-slot" id="slot-building" data-index="0">Robert C. Weaver Federal Building</span>, I was struck by its <span class="madlib-slot" id="slot-adjective" data-index="0">forthright</span> presence. As a citizen who values <span class="madlib-slot" id="slot-value" data-index="0">fiscal responsibility</span>, I believe these structures represent an important chapter in our nation's architectural heritage. The building's exposed concrete facade serves as a daily reminder that public institutions can embody both permanence and purpose. I respectfully urge the preservation of this and similar structures for future generations.
+                                    During a recent visit to the <span class="madlib-slot" id="slot-building" data-index="0">Robert C. Weaver Federal Building</span>, I was struck by its <span class="madlib-slot" id="slot-adjective" data-index="0">forthright</span> presence. As a citizen who values <span class="madlib-slot" id="slot-value" data-index="0">fiscal responsibility</span>, I believe these structures represent an important chapter in our nation's architectural heritage. The building's exposed concrete facade serves as a daily reminder that public institutions can embody both <span class="madlib-slot" id="slot-values" data-index="0">permanence and purpose</span>. I respectfully urge the preservation of this and similar structures for future generations.
                                 </p>
 
                                 <div class="madlib-controls">
@@ -229,6 +229,10 @@
                                     </button>
                                     <button type="button" class="cycle-btn" data-target="slot-value">
                                         <span class="cycle-label">Value</span>
+                                        <span class="cycle-arrows">&#8645;</span>
+                                    </button>
+                                    <button type="button" class="cycle-btn" data-target="slot-values">
+                                        <span class="cycle-label">Embodies</span>
                                         <span class="cycle-arrows">&#8645;</span>
                                     </button>
                                     <button type="button" class="copy-btn" id="copy-story-btn">Copy Story</button>
@@ -345,13 +349,21 @@
                 'civic investment',
                 'architectural integrity',
                 'democratic ideals'
+            ],
+            'slot-values': [
+                'permanence and purpose',
+                'people and office supplies',
+                'structural load and HVAC systems',
+                'concrete and rebar',
+                'citizens and filing cabinets'
             ]
         };
 
         const madlibIndices = {
             'slot-building': 0,
             'slot-adjective': 0,
-            'slot-value': 0
+            'slot-value': 0,
+            'slot-values': 0
         };
 
         document.querySelectorAll('.cycle-btn[data-target]').forEach(btn => {
