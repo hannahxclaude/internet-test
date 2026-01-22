@@ -18,6 +18,10 @@
     --white: #fafafa;
     --text: #3d3d3d;
     --text-muted: #6b6b6b;
+    /* Arizona flag colors */
+    --az-red: #bf0a30;
+    --az-blue: #002868;
+    --az-copper: #ffc627;
 }
 
 body {
@@ -25,6 +29,18 @@ body {
     background: var(--sand);
     color: var(--text);
     line-height: 1.7;
+}
+
+/* Arizona flag stripe at very top */
+body::before {
+    content: '';
+    display: block;
+    height: 6px;
+    background: linear-gradient(to right,
+        var(--az-red) 0%, var(--az-red) 40%,
+        var(--az-copper) 40%, var(--az-copper) 60%,
+        var(--az-blue) 60%, var(--az-blue) 100%
+    );
 }
 
 /* Navigation */
@@ -51,7 +67,7 @@ nav a:hover, nav a.active {
 
 /* Hero */
 .hero {
-    background: var(--sage-dark);
+    background: var(--az-blue);
     color: var(--white);
     padding: 5rem 2rem;
     text-align: center;
@@ -78,7 +94,7 @@ nav a:hover, nav a.active {
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    color: var(--desert);
+    color: var(--az-copper);
 }
 
 /* Arizona flag accent */
@@ -188,11 +204,12 @@ section h2 {
 
 /* Stat highlight */
 .stat-highlight {
-    background: var(--terracotta);
+    background: var(--az-blue);
     color: var(--white);
     padding: 2rem;
     text-align: center;
     margin-bottom: 2rem;
+    border-left: 6px solid var(--az-copper);
 }
 
 .big-number {
@@ -202,6 +219,7 @@ section h2 {
     font-weight: 700;
     line-height: 1;
     margin-bottom: 0.5rem;
+    color: var(--az-copper);
 }
 
 .stat-label {
@@ -214,7 +232,7 @@ section h2 {
     background: var(--white);
     padding: 1.5rem 2rem;
     margin-top: 2rem;
-    border-left: 4px solid var(--terracotta);
+    border-left: 4px solid var(--az-copper);
     font-size: 1.1rem;
     font-style: italic;
     color: var(--text);
