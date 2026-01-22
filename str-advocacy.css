@@ -1,0 +1,354 @@
+/* Homes Not Hotels - STR Advocacy Styles */
+/* Clean, community-focused design */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --sand: #f5f0e8;
+    --sand-dark: #e6dfd3;
+    --desert: #c4a77d;
+    --sage: #6b7c5e;
+    --sage-dark: #4a5a40;
+    --terracotta: #c67a4a;
+    --black: #2a2a2a;
+    --white: #fafafa;
+    --text: #3d3d3d;
+    --text-muted: #6b6b6b;
+}
+
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--sand);
+    color: var(--text);
+    line-height: 1.7;
+}
+
+/* Navigation */
+nav {
+    background: var(--black);
+    padding: 1rem 2rem;
+    display: flex;
+    gap: 2rem;
+}
+
+nav a {
+    color: var(--sand);
+    text-decoration: none;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: color 0.2s;
+}
+
+nav a:hover, nav a.active {
+    color: var(--white);
+}
+
+/* Hero */
+.hero {
+    background: var(--sage-dark);
+    color: var(--white);
+    padding: 5rem 2rem;
+    text-align: center;
+}
+
+.hero h1 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.hero .subtitle {
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--sand);
+    margin-bottom: 1rem;
+}
+
+.hero .location {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--desert);
+}
+
+/* Sections */
+section {
+    padding: 4rem 2rem;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+section h2 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 2rem;
+    color: var(--black);
+    border-bottom: 3px solid var(--sage);
+    padding-bottom: 0.5rem;
+}
+
+/* Intro */
+.intro {
+    background: var(--white);
+    border-left: 4px solid var(--sage);
+}
+
+.intro .lead {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.intro p {
+    font-size: 1.1rem;
+}
+
+/* Problem section */
+.problem {
+    background: var(--sand-dark);
+}
+
+.problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.problem-card {
+    background: var(--white);
+    padding: 1.5rem;
+    border-left: 4px solid var(--terracotta);
+}
+
+.problem-card h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+    color: var(--black);
+}
+
+.problem-card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+/* Solution section */
+.solution {
+    background: var(--white);
+}
+
+.ask-box {
+    background: var(--sage-dark);
+    color: var(--white);
+    padding: 2rem;
+}
+
+.ask-box h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+.ask-intro {
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    color: var(--sand);
+}
+
+.ask-list {
+    list-style: none;
+}
+
+.ask-list li {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-left: 3px solid var(--desert);
+}
+
+.ask-list li:last-child {
+    margin-bottom: 0;
+}
+
+.ask-list strong {
+    color: var(--sand);
+}
+
+/* Action section */
+.action {
+    background: var(--sage);
+    color: var(--white);
+}
+
+.action h2 {
+    color: var(--white);
+    border-bottom-color: var(--sand);
+}
+
+.action-content {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .action-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+.action-text p {
+    margin-bottom: 1rem;
+}
+
+.rep-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.action-btn {
+    display: block;
+    background: var(--black);
+    color: var(--white);
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    font-weight: bold;
+    border: 2px solid var(--black);
+    transition: all 0.2s;
+}
+
+.action-btn:hover {
+    background: var(--white);
+    color: var(--black);
+}
+
+/* Message section */
+.message-section {
+    background: var(--sage-dark);
+    padding: 1.5rem;
+}
+
+.message-section h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--desert);
+}
+
+.copy-btn {
+    background: var(--sand);
+    color: var(--black);
+    border: none;
+    padding: 0.4rem 1rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.copy-btn:hover {
+    background: var(--white);
+}
+
+.copy-btn.copied {
+    background: var(--terracotta);
+    color: var(--white);
+}
+
+.message-box {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--sand);
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.message-box p {
+    margin-bottom: 0.75rem;
+}
+
+.message-box strong {
+    color: var(--white);
+}
+
+/* Resources */
+.resources {
+    background: var(--sand-dark);
+}
+
+.resource-list {
+    list-style: none;
+}
+
+.resource-list li {
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    background: var(--white);
+    border-left: 3px solid var(--sage);
+    font-size: 0.95rem;
+}
+
+/* Footer */
+footer {
+    background: var(--black);
+    color: var(--text-muted);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.85rem;
+}
+
+footer p {
+    margin-bottom: 0.25rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .hero h1 {
+        letter-spacing: 0.05em;
+    }
+
+    .problem-grid {
+        grid-template-columns: 1fr;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}
