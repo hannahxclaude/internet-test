@@ -97,41 +97,14 @@ nav a:hover, nav a.active {
     color: var(--az-copper);
 }
 
-/* Arizona flag accent */
-.az-flag {
-    width: 60px;
-    height: 40px;
+/* Arizona flag image */
+.az-flag-img {
+    width: 80px;
+    height: auto;
     margin: 0 auto 1.5rem;
-    background: linear-gradient(
-        to bottom,
-        #bf0a30 0%, #bf0a30 50%,
-        #002868 50%, #002868 100%
-    );
-    position: relative;
+    display: block;
     border: 2px solid rgba(255,255,255,0.3);
-}
-
-.az-flag::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 12px;
-    height: 12px;
-    background: #ffc627;
-    border-radius: 50%;
-}
-
-.az-flag::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-bottom: 20px solid #ffc627;
+    border-radius: 4px;
 }
 
 /* Sections */
@@ -345,6 +318,62 @@ section h2 {
     color: var(--black);
 }
 
+.action-btn-secondary {
+    background: transparent;
+    border: 2px solid var(--az-copper);
+    color: var(--az-copper);
+}
+
+.action-btn-secondary:hover {
+    background: var(--az-copper);
+    color: var(--black);
+}
+
+/* Action blocks */
+.action-block {
+    background: var(--sage-dark);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.action-block:last-child {
+    margin-bottom: 0;
+}
+
+.action-block-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+    color: var(--az-copper);
+}
+
+.action-block > p {
+    margin-bottom: 1rem;
+}
+
+.action-block .rep-buttons {
+    margin-bottom: 1.5rem;
+}
+
+.action-block .message-section {
+    margin-top: 1.5rem;
+}
+
+.action-block .message-section h4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--desert);
+}
+
 /* Message section */
 .message-section {
     background: var(--sage-dark);
@@ -432,6 +461,162 @@ footer {
 
 footer p {
     margin-bottom: 0.25rem;
+}
+
+.land-acknowledgement {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.4);
+    font-style: italic;
+}
+
+/* Sold Out Page Styles */
+.hero-dark {
+    background: var(--black);
+}
+
+.back-link {
+    margin-bottom: 1rem;
+}
+
+.back-link a {
+    color: var(--az-copper);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}
+
+/* Player cards */
+.the-players {
+    background: var(--sand-dark);
+}
+
+.player-card {
+    background: var(--white);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--sage);
+}
+
+.player-card.highlight {
+    border-left-color: var(--az-red);
+    background: #fff9f9;
+}
+
+.player-card h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+    color: var(--black);
+}
+
+.player-role {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--az-red);
+    margin-bottom: 1rem;
+}
+
+.player-card p {
+    margin-bottom: 0.75rem;
+}
+
+.player-card .note {
+    font-style: italic;
+    color: var(--text-muted);
+}
+
+.player-card .source {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.player-card .source a {
+    color: var(--sage-dark);
+}
+
+/* Money stats */
+.money-stats {
+    display: flex;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+}
+
+.money-stat {
+    background: var(--sand);
+    padding: 1rem 1.5rem;
+    text-align: center;
+}
+
+.money-amount {
+    display: block;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--az-red);
+}
+
+.money-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* The vote section */
+.the-vote {
+    background: var(--az-blue);
+    color: var(--white);
+}
+
+.the-vote h2 {
+    color: var(--white);
+    border-bottom-color: var(--az-copper);
+}
+
+.call-out {
+    background: rgba(255,255,255,0.1);
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    border-left: 4px solid var(--az-copper);
+}
+
+/* What now section */
+.what-now {
+    background: var(--sage);
+    color: var(--white);
+}
+
+.what-now h2 {
+    color: var(--white);
+    border-bottom-color: var(--sand);
+}
+
+.action-list {
+    list-style: none;
+    margin-bottom: 2rem;
+}
+
+.action-list li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.action-list li:last-child {
+    border-bottom: none;
+}
+
+footer a {
+    color: var(--az-copper);
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
 
 /* Responsive */
