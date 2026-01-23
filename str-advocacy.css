@@ -466,10 +466,11 @@ footer p {
 .land-acknowledgement {
     margin-top: 1.5rem;
     padding-top: 1rem;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.4);
+    border-top: 1px solid rgba(255,255,255,0.2);
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.7);
     font-style: italic;
+    line-height: 1.5;
 }
 
 /* Sold Out Page Styles */
@@ -702,6 +703,65 @@ footer a:hover {
 
 .what-now .call-out {
     margin-top: 2rem;
+}
+
+/* Get Involved / Show Your Support Section */
+.get-involved {
+    background: var(--az-blue);
+    color: var(--white);
+}
+
+.get-involved h2 {
+    color: var(--white);
+    border-bottom-color: var(--az-copper);
+}
+
+.involve-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.involve-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-left: 4px solid var(--az-copper);
+}
+
+.involve-card h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+    color: var(--az-copper);
+}
+
+.involve-card p {
+    margin-bottom: 1rem;
+    color: var(--sand);
+}
+
+.involve-card .action-btn {
+    margin-top: 0.5rem;
+}
+
+.involve-card.coming-soon {
+    border-left-color: var(--sand);
+    opacity: 0.85;
+}
+
+.coming-soon-tag {
+    display: inline-block;
+    background: var(--az-copper);
+    color: var(--black);
+    padding: 0.4rem 1rem;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.5rem;
 }
 
 /* Responsive */
