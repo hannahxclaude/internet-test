@@ -619,6 +619,91 @@ footer a:hover {
     text-decoration: underline;
 }
 
+/* Current Representatives Section */
+.current-reps {
+    background: var(--white);
+}
+
+.section-intro {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: var(--text);
+}
+
+.district-block {
+    margin-bottom: 2rem;
+}
+
+.district-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--az-blue);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--sand-dark);
+}
+
+.current-reps .player-card {
+    margin-bottom: 0;
+}
+
+.current-reps .player-card a {
+    color: var(--sage-dark);
+}
+
+.current-reps .player-card a:hover {
+    color: var(--terracotta);
+}
+
+.current-reps .call-out {
+    background: var(--sand-dark);
+    color: var(--text);
+    margin-top: 2rem;
+}
+
+.current-reps .call-out .rep-buttons {
+    margin-top: 1rem;
+}
+
+/* Dark action blocks for What Now section */
+.action-block-dark {
+    background: var(--sage-dark);
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.action-block-dark h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--az-copper);
+    margin-bottom: 0.75rem;
+}
+
+.action-block-dark p {
+    margin-bottom: 1rem;
+}
+
+.action-block-dark .action-list {
+    margin-bottom: 1rem;
+}
+
+.action-block-dark .action-list li {
+    border-bottom-color: rgba(255,255,255,0.15);
+}
+
+.what-now .section-intro {
+    color: var(--sand);
+    margin-bottom: 2rem;
+}
+
+.what-now .call-out {
+    margin-top: 2rem;
+}
+
 /* Responsive */
 @media (max-width: 600px) {
     .hero h1 {
